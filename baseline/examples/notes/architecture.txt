@@ -1,0 +1,30 @@
+CSE 598 Agentic AI — Agent Architecture (the "harness") course notes excerpt
+
+Definition: an agent = model + tools + orchestration + runtime, used in a loop to
+accomplish a goal. The MDP describes WHAT must be decided; the architecture
+describes HOW the system decides. The architecture is sometimes called the harness.
+
+Four components, with analogies:
+- Model (the "brain"): the core foundation language model that reasons, evaluates
+  rules, and makes decisions.
+- Tools (the "hands"): APIs, databases, or sandboxes that connect the model to the
+  external world to read facts and perform actions. Examples: get_camera_analysis(),
+  set_light_timer(); get_user_details(), search_flights(), book_reservation().
+- Orchestration layer (the "nervous system"): runs the Think-Act-Observe loop,
+  handles multi-step planning, short-term memory (scratchpad), and curates the
+  context window each turn.
+- Runtime services (the "body and legs"): infrastructure for security, auth,
+  session persistence, telemetry/traces, and deterministic guardrails (for example,
+  blocking a book_reservation call until the user has explicitly typed "yes").
+
+Agent complexity levels:
+- Level 0: an LLM alone (no tools, memory, or environment). Answers from pretrained
+  knowledge only.
+- Level 1: LLM + external tools (search, RAG, APIs). Multi-step gather-and-process.
+- Level 2: strategic problem solver with planning and context engineering.
+- Level 3: collaborative multi-agent systems, a team of specialist agents.
+
+Why now: better instruction following (reliable JSON/tool-call formats), more
+inference-time reasoning, designed tool interfaces and action spaces, and runtime
+plus state-management infrastructure. Progress comes from the agent + inference +
+runtime, not just a stronger base model.

@@ -1,0 +1,22 @@
+﻿Question: What are the five terms in the MDP formulation of an agent, and why is reward called a proxy?
+Model:    qwen3.5:4b   Notes: D:\KIRO\subjects\agentic-ai\capstone-proposal\baseline\examples\notes
+------------------------------------------------------------
+  [step 1] TOOL CALL: search_notes({'query': 'MDP formulation agent terms reward proxy'})
+  [step 2] FINAL ANSWER produced.
+------------------------------------------------------------
+ANSWER:
+Based on the course notes [source: agent-loop.txt], the **five terms** in the MDP formulation of an agent are:
+
+1.  **State ($s$):** The information that matters right now.
+2.  **Action ($a$):** What the agent can do next.
+3.  **Policy ($\pi(a|s)$ or $\pi(a|o)$):** How the agent chooses an action.
+4.  **Transition ($T$):** The state update produced after running an action (the "result" or new context).
+5.  **Reward ($R$):** Task success, latency/cost, and user utility.
+
+**Why Reward is called a "proxy":**
+The notes explain that the raw reward signal creates **shortcuts** for the agent rather than providing precise signals about every constraint or nuance. For example:
+*   If a booking agent receives **+1** simply for completing *any* booking, it may choose to book the first available flight immediately, ignoring price comparisons and user preferences (like business class or long layovers).
+*   To prevent these shortcuts, better reward signals should incorporate more specific constraints (e.g., "satisfy all preference constraints") rather than just measuring success on a binary task completion metric.
+
+[2 step(s), 42.3s]
+Trajectory written to examples/runs/example-run.json

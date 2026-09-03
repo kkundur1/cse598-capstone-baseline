@@ -1,0 +1,20 @@
+{
+  "question": "What are the five terms in the MDP formulation of an agent, and why is reward called a proxy?",
+  "model": "qwen3.5:4b",
+  "steps": [
+    {
+      "type": "tool_call",
+      "name": "search_notes",
+      "args": {
+        "query": "MDP formulation agent terms reward proxy"
+      },
+      "observation_preview": "[1] source: agent-loop.txt\nCSE 598 Agentic AI \u2014 Agent Loop and MDP Formulation (course notes excerpt) What is an agent loop? An agent loop is the cycle in which a model repeatedly observes its context"
+    },
+    {
+      "type": "final_answer",
+      "content": "Based on the course notes [source: agent-loop.txt], the **five terms** in the MDP formulation of an agent are:\n\n1.  **State ($s$):** The information that matters right now.\n2.  **Action ($a$):** What the agent can do next.\n3.  **Policy ($\\pi(a|s)$ or $\\pi(a|o)$):** How the agent chooses an action.\n4.  **Transition ($T$):** The state update produced after running an action (the \"result\" or new context).\n5.  **Reward ($R$):** Task success, latency/cost, and user utility.\n\n**Why Reward is called a \"proxy\":**\nThe notes explain that the raw reward signal creates **shortcuts** for the agent rather than providing precise signals about every constraint or nuance. For example:\n*   If a booking agent receives **+1** simply for completing *any* booking, it may choose to book the first available flight immediately, ignoring price comparisons and user preferences (like business class or long layovers).\n*   To prevent these shortcuts, better reward signals should incorporate more specific constraints (e.g., \"satisfy all preference constraints\") rather than just measuring success on a binary task completion metric."
+    }
+  ],
+  "final_answer": "Based on the course notes [source: agent-loop.txt], the **five terms** in the MDP formulation of an agent are:\n\n1.  **State ($s$):** The information that matters right now.\n2.  **Action ($a$):** What the agent can do next.\n3.  **Policy ($\\pi(a|s)$ or $\\pi(a|o)$):** How the agent chooses an action.\n4.  **Transition ($T$):** The state update produced after running an action (the \"result\" or new context).\n5.  **Reward ($R$):** Task success, latency/cost, and user utility.\n\n**Why Reward is called a \"proxy\":**\nThe notes explain that the raw reward signal creates **shortcuts** for the agent rather than providing precise signals about every constraint or nuance. For example:\n*   If a booking agent receives **+1** simply for completing *any* booking, it may choose to book the first available flight immediately, ignoring price comparisons and user preferences (like business class or long layovers).\n*   To prevent these shortcuts, better reward signals should incorporate more specific constraints (e.g., \"satisfy all preference constraints\") rather than just measuring success on a binary task completion metric.",
+  "num_steps": 2
+}

@@ -1,0 +1,34 @@
+CSE 598 Agentic AI — Agent Loop and MDP Formulation (course notes excerpt)
+
+What is an agent loop?
+An agent loop is the cycle in which a model repeatedly observes its context and
+environment, decides on an action, executes it, observes the result, and repeats
+until it completes the goal, fails, or returns control to a human. The model is
+necessary but the whole system is the unit of analysis.
+
+The MDP formulation of an agent uses five terms:
+- state (s): what information matters right now.
+- action (a): what the agent can do next.
+- policy (pi(a|s) or pi(a|o)): how the agent chooses an action from the state/observation.
+- reward (r): a scalar feedback signal saying whether the outcome was good.
+- transition (T(s,a)): how the world changes after an action.
+
+For foundation-model agents the loop decomposes as O/A/T/R:
+- Observation O: the user prompt, tool schemas, and execution trajectory.
+- Action A: the tool choice, API call, and parameters the policy emits.
+- Transition T: the state update produced by running tools/APIs.
+- Reward R: task success, latency/cost, and user utility.
+
+Reward is a proxy, so inspect the shortcuts it creates. For example, a booking
+agent that gets +1 for any completed booking may book the first available flight
+and ignore price and preferences. Better signals include constraint satisfaction,
+explicit confirmation, and no duplicate charge.
+
+Error compounding: long trajectories amplify small errors. If each step succeeds
+with probability 0.95, then over 20 steps the success rate is 0.95^20, which is
+approximately 0.36.
+
+Evaluation is multi-dimensional, not just final success rate. Three dimensions:
+- Outcome: did it finish? (task success rate, stakeholder acceptance)
+- Trajectory: how did it finish? (which tools were chosen, how it recovered, when it stopped)
+- Deployment: at what cost and risk?
