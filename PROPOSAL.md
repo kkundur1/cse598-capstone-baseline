@@ -1,19 +1,33 @@
-[This submission used the help of generative AI tools]
+﻿[This submission used the help of generative AI tools]
 
-Generative AI tool used: Kiro (Claude). It assisted with the design, the baseline
-code, and the drafting of this proposal. Full interaction trace available on request,
-per the CSE 598 Agentic AI GenAI policy.
+Generative AI tool used: **Kiro (Claude)**. Per the course requirement to separate my
+own work from AI-generated work, the split is itemized below.
 
-# Capstone Project Proposal — Course Study-Assistant Agent
+| Part of this submission | Origin |
+| --- | --- |
+| Problem choice, domain, and intended user (Section 1) | Mine — I selected the study-assistant problem and its success/failure criteria |
+| Scope decisions: single-course, one tool, what is out of scope (Section 2) | Mine — I set the semester scope |
+| Baseline architecture decision (bounded agent loop + one retrieval tool, local Ollama over a paid API) | Mine — I chose the approach and the free/local constraint |
+| Baseline source code (`agent.py`, `tools.py`) | **AI-generated** by Kiro from my specification; I reviewed it and ran it |
+| Course notes used as retrieval corpus (`examples/notes/`) | Content condensed from CSE 598 Lecture 1–2 material (my course notes); AI-assisted in summarizing |
+| Execution of the baseline and the recorded run/output (Section 4) | Mine — run locally on my machine; output is unedited |
+| Prose drafting of this document | **AI-drafted** from my inputs and decisions, reviewed and corrected by me |
+| Evaluation plan and next-phase direction (Sections 6–7) | Mine in substance, AI-assisted in wording |
+
+The course permits an AI-generated baseline (Lab 1: an AI-generated first version is
+recommended). The full interaction trace is available on request, per the CSE 598
+Agentic AI GenAI policy.
+
+# Capstone Project Proposal â€” Course Study-Assistant Agent
 
 **Student:** Karthik Venkata Sai Reddy Kunduru (kkundur1)
 **Project title:** A grounded, tool-using study-assistant agent for course materials
 **Repository / notebook link:** https://github.com/kkundur1/cse598-capstone-baseline (public)
-**Configuration location:** `capstone/baseline/README.md`
+**Configuration location:** `baseline/README.md`
 
 ---
 
-## Section 1 — Problem Definition (15)
+## Section 1 â€” Problem Definition (15)
 **Task.** Build an agent that answers a student's natural-language question about a
 specific course using only that course's materials, and grounds every answer in a
 cited source. Input: a question (string) plus a folder of course notes (`.txt`).
@@ -22,7 +36,7 @@ found" when the notes do not contain the answer.
 
 **Intended user & situation.** A graduate student (the stakeholder) studying across
 several dense courses who needs fast, *trustworthy* answers from their own lecture
-notes/readings — not a general chatbot that may hallucinate or cite nothing.
+notes/readings â€” not a general chatbot that may hallucinate or cite nothing.
 
 **Success vs. failure (operational).**
 - Success: the answer is factually correct with respect to the notes AND includes a
@@ -30,14 +44,14 @@ notes/readings — not a general chatbot that may hallucinate or cite nothing.
 - Failure: the answer is wrong, unsupported/uncited, or hallucinated; or the agent
   claims an answer when the notes lack it.
 
-## Section 2 — Motivation and Project Scope (15)
-**Why it matters.** Ungrounded LLM answers are unsafe for studying — a confident
+## Section 2 â€” Motivation and Project Scope (15)
+**Why it matters.** Ungrounded LLM answers are unsafe for studying â€” a confident
 wrong answer costs exam points. Retrieval-grounded, citation-first answering over a
 student's *own* materials is directly useful and directly measurable.
 
 **Why agentic AI is a reasonable approach.** The task benefits from a real agent
 loop: the model decides *whether and what* to retrieve, reads the observation, and
-can search again before answering — Observe→Decide→Act→Observe. That is tool use +
+can search again before answering â€” Observeâ†’Decideâ†’Actâ†’Observe. That is tool use +
 planning under the course's MDP framing, not a single prompt.
 
 **In scope this semester:** single-course Q&A; one retrieval tool; grounded,
@@ -45,9 +59,9 @@ cited answers; an evaluation harness comparing an improved system to this baseli
 **Out of scope:** multi-course reasoning, web access, write actions, multi-agent
 orchestration, and UI polish.
 
-## Section 3 — Runnable Baseline (25)
-A working agent (`capstone/baseline/`) that runs a **bounded agent loop with one
-tool call** on a **local LLM via Ollama** (`qwen3.5:4b`) — no API key, no cost.
+## Section 3 â€” Runnable Baseline (25)
+A working agent (`baseline/`) that runs a **bounded agent loop with one
+tool call** on a **local LLM via Ollama** (`qwen3.5:4b`) â€” no API key, no cost.
 
 - **Model/tools/libraries:** Ollama chat API (local) for the policy; a `search_notes`
   tool (keyword-overlap retriever over `.txt` notes). Pure Python standard library.
@@ -59,10 +73,10 @@ tool call** on a **local LLM via Ollama** (`qwen3.5:4b`) — no API key, no cost
   loop) yet simple and deterministic in its retrieval, giving a clean, honest bar to
   beat. The keyword retriever is intentionally weak so later RAG/fine-tuning shows
   measurable gains.
-- **Baseline files:** `capstone/baseline/agent.py` (loop), `tools.py` (tool +
+- **Baseline files:** `baseline/agent.py` (loop), `tools.py` (tool +
   schema), `examples/notes/` (course notes), `examples/runs/` (a saved run).
 
-## Section 4 — Test Case and Baseline Output (25)
+## Section 4 â€” Test Case and Baseline Output (25)
 **Sample input (command):**
 ```
 python agent.py -q "What are the five terms in the MDP formulation of an agent, and why is reward called a proxy?"
@@ -100,26 +114,26 @@ preferences, because that maximizes the coarse signal [source: agent-loop.txt].
 The full transcript is committed at `baseline/examples/runs/example-run.txt` and the
 machine-readable trajectory at `baseline/examples/runs/example-run.json` in the public repo.
 
-**Screenshot:** _<PASTE a screenshot of the terminal running the command above — re-run
+**Screenshot:** _<PASTE a screenshot of the terminal running the command above â€” re-run
 the Section-4 command and capture the window, then insert the image here.>_
 
-**What worked / didn't:** Worked — grounded, cited, correct, and it self-issued a
-second search to cover the second half of the question. Limitation — keyword
+**What worked / didn't:** Worked â€” grounded, cited, correct, and it self-issued a
+second search to cover the second half of the question. Limitation â€” keyword
 retrieval can miss paraphrased queries (no semantic match), which motivates the
 Phase-2 improvement.
 
-## Section 5 — Reproducibility and Run Instructions (10)
+## Section 5 â€” Reproducibility and Run Instructions (10)
 - **Dependencies:** Python 3.9+ (standard library only) and Ollama running locally.
 - **Setup:** `ollama pull qwen3.5:4b` (once); ensure Ollama is running.
 - **API keys / env vars:** none.
-- **Exact command:** from `capstone/baseline/`, run the command in Section 4.
+- **Exact command:** from `baseline/`, run the command in Section 4.
 - **Input location:** `examples/notes/*.txt` (swap with `-n <dir>`).
 - **Output location:** stdout; optional trajectory via `--json-out <path>`.
 - **Known limitation:** LLM wording varies slightly between runs; cited facts are
-  stable. Full details in `capstone/baseline/README.md`.
+  stable. Full details in `baseline/README.md`.
 
-## Section 6 — Initial Evaluation Plan (5)
-Compare the improved system against this baseline on a held-out set of ~20–30
+## Section 6 â€” Initial Evaluation Plan (5)
+Compare the improved system against this baseline on a held-out set of ~20â€“30
 question/answer pairs drawn from the course notes, measuring:
 - **Answer correctness** (exact/graded match or LLM-as-judge).
 - **Citation validity** (does the cited source actually contain the claim?).
@@ -129,14 +143,14 @@ question/answer pairs drawn from the course notes, measuring:
 Evidence of improvement = higher correctness + citation validity and lower
 hallucination than the baseline on the same set.
 
-## Section 7 — Limitations and Next Steps (5)
+## Section 7 â€” Limitations and Next Steps (5)
 - **Known weaknesses:** keyword retrieval misses synonyms/paraphrase; small local
   model can mis-summarize; single-course only.
 - **Expected failures:** paraphrased questions, multi-hop questions, notes that lack
   the answer (should say "not found" but a weak model may guess).
 - **Next phase:** (1) replace keyword search with embedding-based RAG; (2) optionally
   QLoRA-fine-tune a small open model for better tool-use/grounding, trained on ASU's
-  Sol A100 cluster (needs the sponsored HPC account — see `docs/07-sol-project-plan.md`);
+  Sol A100 cluster (needs the sponsored HPC account â€” see `docs/07-sol-project-plan.md`);
   (3) build the evaluation harness from Section 6.
 - **Risks / help needed:** Sol account sponsor approval; a labeled Q/A eval set; time.
 
@@ -146,7 +160,7 @@ hallucination than the baseline on the same set.
 1. [DONE] Public GitHub repo pushed under this account:
    https://github.com/kkundur1/cse598-capstone-baseline
 2. [DONE] Repo link recorded in "Repository / notebook link" above.
-3. [TODO — you] Run the Section-4 command, screenshot the terminal, and paste it into
+3. [TODO â€” you] Run the Section-4 command, screenshot the terminal, and paste it into
    Section 4 (the saved transcript is already committed at
    `baseline/examples/runs/example-run.txt`).
-4. [TODO — you] Submit `PROPOSAL.docx` to Canvas by **Sep 6, 11:59 PM Phoenix**.
+4. [TODO â€” you] Submit `PROPOSAL.docx` to Canvas by **Sep 6, 11:59 PM Phoenix**.
