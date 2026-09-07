@@ -8,7 +8,7 @@ per the CSE 598 Agentic AI GenAI policy.
 
 **Student:** Karthik Venkata Sai Reddy Kunduru (kkundur1)
 **Project title:** A grounded, tool-using study-assistant agent for course materials
-**Repository / notebook link:** <ADD PUBLIC GITHUB LINK — see "How to publish" at the bottom>
+**Repository / notebook link:** https://github.com/kkundur1/cse598-capstone-baseline (public)
 **Configuration location:** `capstone/baseline/README.md`
 
 ---
@@ -71,11 +71,37 @@ python agent.py -q "What are the five terms in the MDP formulation of an agent, 
 five MDP terms (state, action, policy, reward, transition) and explaining "reward as
 a proxy," each grounded with `[source: agent-loop.txt]`.
 
-**Actual output (real run, RTX 3070 laptop, ~18s, 2 tool calls + final answer):**
-saved verbatim in `capstone/baseline/examples/runs/example-run.txt`, with the full
-trajectory in `example-run.json`. The agent correctly returned all five terms with
-citations and explained the reward-proxy shortcut using the booking example.
-**Screenshot:** <ADD SCREENSHOT of the terminal run — see "How to publish".>
+**Actual output (real local run, `qwen3.5:4b` via Ollama, 3 steps / 2 tool calls, ~71s).**
+Verbatim console transcript:
+
+```
+Question: What are the five terms in the MDP formulation of an agent, and why is reward called a proxy?
+Model:    qwen3.5:4b   Notes: ...\baseline\examples\notes
+------------------------------------------------------------
+  [step 1] TOOL CALL: search_notes({'query': 'MDP formulation agent five terms'})
+  [step 2] TOOL CALL: search_notes({'query': 'reward proxy MDP formulation'})
+  [step 3] FINAL ANSWER produced.
+------------------------------------------------------------
+ANSWER:
+The five terms in the MDP formulation of an agent are:
+1. State (s): what information matters right now [source: agent-loop.txt]
+2. Action (a): what the agent can do next [source: agent-loop.txt]
+3. Policy (pi(a|s) or pi(a|o)): how the agent chooses an action [source: agent-loop.txt]
+4. Transition (T): the state update produced by running tools/APIs [source: agent-loop.txt]
+5. Reward (R): task success, latency/cost, and user utility [source: agent-loop.txt]
+
+Why reward is a "proxy": the reward signal is a simplified/aggregated stand-in for the
+true objective, so it can be gamed by shortcuts. Example: an agent rewarded +1 for any
+completed booking may grab the first available flight and ignore price or user
+preferences, because that maximizes the coarse signal [source: agent-loop.txt].
+[3 step(s), 71.3s]
+```
+
+The full transcript is committed at `baseline/examples/runs/example-run.txt` and the
+machine-readable trajectory at `baseline/examples/runs/example-run.json` in the public repo.
+
+**Screenshot:** _<PASTE a screenshot of the terminal running the command above — re-run
+the Section-4 command and capture the window, then insert the image here.>_
 
 **What worked / didn't:** Worked — grounded, cited, correct, and it self-issued a
 second search to cover the second half of the question. Limitation — keyword
@@ -116,13 +142,11 @@ hallucination than the baseline on the same set.
 
 ---
 
-## How to publish (do these before submitting)
-1. Create a public GitHub repo and push the `capstone/` folder (commit under your own
-   account — the course requires it). With GitHub CLI: `gh auth login`, then
-   `gh repo create <name> --public --source=. --push` from the capstone folder.
-2. Put the repo link in "Repository / notebook link" above.
-3. Take a screenshot of the terminal running the Section-4 command (or use
-   `examples/runs/example-run.txt`) and add it to Section 4 / the repo.
-4. Export this proposal to the required format (the template is a .docx; use
-   `pandoc PROPOSAL.md -o PROPOSAL.docx` if a Word file is needed) and submit to
-   Canvas by **Sep 6, 11:59 PM Phoenix**.
+## Submission checklist
+1. [DONE] Public GitHub repo pushed under this account:
+   https://github.com/kkundur1/cse598-capstone-baseline
+2. [DONE] Repo link recorded in "Repository / notebook link" above.
+3. [TODO — you] Run the Section-4 command, screenshot the terminal, and paste it into
+   Section 4 (the saved transcript is already committed at
+   `baseline/examples/runs/example-run.txt`).
+4. [TODO — you] Submit `PROPOSAL.docx` to Canvas by **Sep 6, 11:59 PM Phoenix**.

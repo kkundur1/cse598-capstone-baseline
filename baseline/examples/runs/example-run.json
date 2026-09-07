@@ -6,15 +6,23 @@
       "type": "tool_call",
       "name": "search_notes",
       "args": {
-        "query": "MDP formulation agent terms reward proxy"
+        "query": "MDP formulation agent five terms"
+      },
+      "observation_preview": "[1] source: agent-loop.txt\nCSE 598 Agentic AI \u2014 Agent Loop and MDP Formulation (course notes excerpt) What is an agent loop? An agent loop is the cycle in which a model repeatedly observes its context"
+    },
+    {
+      "type": "tool_call",
+      "name": "search_notes",
+      "args": {
+        "query": "reward proxy MDP formulation"
       },
       "observation_preview": "[1] source: agent-loop.txt\nCSE 598 Agentic AI \u2014 Agent Loop and MDP Formulation (course notes excerpt) What is an agent loop? An agent loop is the cycle in which a model repeatedly observes its context"
     },
     {
       "type": "final_answer",
-      "content": "Based on the course notes [source: agent-loop.txt], the **five terms** in the MDP formulation of an agent are:\n\n1.  **State ($s$):** The information that matters right now.\n2.  **Action ($a$):** What the agent can do next.\n3.  **Policy ($\\pi(a|s)$ or $\\pi(a|o)$):** How the agent chooses an action.\n4.  **Transition ($T$):** The state update produced after running an action (the \"result\" or new context).\n5.  **Reward ($R$):** Task success, latency/cost, and user utility.\n\n**Why Reward is called a \"proxy\":**\nThe notes explain that the raw reward signal creates **shortcuts** for the agent rather than providing precise signals about every constraint or nuance. For example:\n*   If a booking agent receives **+1** simply for completing *any* booking, it may choose to book the first available flight immediately, ignoring price comparisons and user preferences (like business class or long layovers).\n*   To prevent these shortcuts, better reward signals should incorporate more specific constraints (e.g., \"satisfy all preference constraints\") rather than just measuring success on a binary task completion metric."
+      "content": "Based on the course notes, here are the answers:\n\n**The five terms in the MDP formulation of an agent are:**\n1.  **State (s):** What information matters right now [source: <agent-loop.txt>]\n2.  **Action (a):** What the agent can do next [source: <agent-loop.txt>]\n3.  **Policy ($\\pi(a|s)$ or $\\pi(a|o)$):** How the agent chooses an action [source: <agent-loop.txt>]\n4.  **Transition (T):** The state update produced by running tools/APIs [source: <agent-loop.txt>]\n5.  **Reward (R):** Task success, latency/cost, and user utility [source: <agent-loop.txt>]\n\n**Why is reward called a \"proxy\"?**\nReward is considered a proxy because the signals provided are often simplified or aggregated versions of more complex realities, which can lead to unintended behaviors like shortcuts. For example, an agent rewarded simply for completing a booking might choose the first available flight and ignore price or preferences because that maximizes its reward signal [source: <agent-loop.txt>]."
     }
   ],
-  "final_answer": "Based on the course notes [source: agent-loop.txt], the **five terms** in the MDP formulation of an agent are:\n\n1.  **State ($s$):** The information that matters right now.\n2.  **Action ($a$):** What the agent can do next.\n3.  **Policy ($\\pi(a|s)$ or $\\pi(a|o)$):** How the agent chooses an action.\n4.  **Transition ($T$):** The state update produced after running an action (the \"result\" or new context).\n5.  **Reward ($R$):** Task success, latency/cost, and user utility.\n\n**Why Reward is called a \"proxy\":**\nThe notes explain that the raw reward signal creates **shortcuts** for the agent rather than providing precise signals about every constraint or nuance. For example:\n*   If a booking agent receives **+1** simply for completing *any* booking, it may choose to book the first available flight immediately, ignoring price comparisons and user preferences (like business class or long layovers).\n*   To prevent these shortcuts, better reward signals should incorporate more specific constraints (e.g., \"satisfy all preference constraints\") rather than just measuring success on a binary task completion metric.",
-  "num_steps": 2
+  "final_answer": "Based on the course notes, here are the answers:\n\n**The five terms in the MDP formulation of an agent are:**\n1.  **State (s):** What information matters right now [source: <agent-loop.txt>]\n2.  **Action (a):** What the agent can do next [source: <agent-loop.txt>]\n3.  **Policy ($\\pi(a|s)$ or $\\pi(a|o)$):** How the agent chooses an action [source: <agent-loop.txt>]\n4.  **Transition (T):** The state update produced by running tools/APIs [source: <agent-loop.txt>]\n5.  **Reward (R):** Task success, latency/cost, and user utility [source: <agent-loop.txt>]\n\n**Why is reward called a \"proxy\"?**\nReward is considered a proxy because the signals provided are often simplified or aggregated versions of more complex realities, which can lead to unintended behaviors like shortcuts. For example, an agent rewarded simply for completing a booking might choose the first available flight and ignore price or preferences because that maximizes its reward signal [source: <agent-loop.txt>].",
+  "num_steps": 3
 }
